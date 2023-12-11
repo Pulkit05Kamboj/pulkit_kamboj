@@ -27,7 +27,7 @@ def add_contact(request):
             print(form["contact_email"].value())
             if Contacts.objects.filter(contact_email=form['contact_email'].value()):
                 messages.success(request, 'Contact with given e-mail exists already! Unable to add contact.')
-                return redirect('addContact')
+                return redirect('createContact')
             else:
                 form.save()
                 messages.success(request, 'Contact created successfully.')
