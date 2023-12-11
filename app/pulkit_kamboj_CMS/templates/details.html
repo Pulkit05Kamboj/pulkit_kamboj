@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %} CMA | Contact Details {% endblock %}
+
+{% block content %}
+<h1 style="text-align: center; color: black;" class="m-5">{% block header %}Contact Details{% endblock %}</h1>
+<div style="display: flex; justify-content: left;">
+    <div style="display: grid; grid-template-columns: 12rem auto;">
+        <h5>Name: </h5><h5 style="margin-left: 10%">{{ curr_contact.contact_name }}</h5>
+        <h5>E-mail: </h5> <h5 style="margin-left: 10%">{{ curr_contact.contact_email }}</h5>
+        <h5>Notes: </h5> <h5 style="margin-left: 10%">{{ curr_contact.contact_notes }}</h5>
+        <h5>Created Time: </h5> <h5 style="margin-left: 10%">{{ curr_contact.created_time }}</h5>
+    </div>
+</div>
+<div style="display: flex; justify-content: left;">
+    <a class="btn m-2" style="background-color: #167D7F; color: white;" href="{% url 'home' %}">Home</a>
+    <a class="btn m-2" style="border: 2px solid black;" href="{% url 'update' curr_contact.id %}">Edit</a>
+    <a class="btn btn-danger m-2" href="{% url 'deleteConf' curr_contact.id %}">Delete</a>
+</div>
+
+
+{% endblock %}

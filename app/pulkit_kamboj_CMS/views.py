@@ -34,3 +34,9 @@ def add_contact(request):
                 return redirect('home')
     else:
         return render(request, 'addContact.html', {'created_time': update_time()})
+
+
+def details(request, contact_id):
+    curr_contact = Contacts.objects.get(pk=contact_id)
+    print(curr_contact)
+    return render(request, 'details.html', {'curr_contact': curr_contact})
