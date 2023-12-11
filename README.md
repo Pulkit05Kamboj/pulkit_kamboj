@@ -21,6 +21,8 @@ Thank You!
 Developed by:
 PULKIT KAMBOJ
 
-Calilfornia State University, Long Beach
+California State University, Long Beach
 
-Student ID: 032253934
+Student ID: 032258367
+
+For subject: IS 640 - Programming for Business Analytics
