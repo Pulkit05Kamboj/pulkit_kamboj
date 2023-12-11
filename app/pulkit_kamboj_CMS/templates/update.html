@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %} CMA | Update Contact {% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 style="text-align: center; color: black;" class="m-5">Update Contact</h1>
+    {% if messages %}
+      {% for message in messages %}
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>{{ message }}</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      {% endfor %}
+    {% endif %}
+    <div>
+      <form method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="contact_name" class="form-label">Name</label>
+            <input type="text" class="form-control" id="contact_name" name="contact_name" value="{{curr_contact.contact_name}}" required>
+        </div>
+        <div class="mb-3">
+          <label for="contact_email" class="form-label">Email address</label>
+          <input type="email" class="form-control" id="contact_email" name="contact_email" aria-describedby="emailHelp" value="{{curr_contact.contact_email}}" required>
+          <div id="emailHelp" class="form-text"></div>
+        </div>
+        <div>
+            <label for="contact_notes" class="form-label">Notes</label>
+            <input type="text" class="form-control" name="contact_notes" id="contact_notes" value="{{curr_contact.contact_notes}}" required>
+        </div>
+        <input type="text" name="created_time" id="created_time" value="{{ created_time }}" hidden>
+        <button type="submit" class="btn m-2" style="background-color: #167D7F; color: white;">Update Contact</button>
+        <a href="{% url 'home' %}" type="button" class="btn m-2" style="border: 2px solid black; ">Cancel</a>
+      </form>
+    </div>
+</div>
+
+
+{% endblock %}

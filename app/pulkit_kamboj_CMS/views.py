@@ -40,3 +40,37 @@ def details(request, contact_id):
     curr_contact = Contacts.objects.get(pk=contact_id)
     print(curr_contact)
     return render(request, 'details.html', {'curr_contact': curr_contact})
+
+
+def update(request, contact_id):
+    if request.method == 'POST':
+        curr_contact = Contacts.objects.get(pk=contact_id)
+        form = ContactForm(request.POST or None, instance=curr_contact)
+        print(curr_contact.contact_notes)
+        curr_email = curr_contact.contact_email
+        if form.is_valid():
+            print(form["contact_name"].value(), curr_contact.contact_name)
+            print(form["contact_email"].value(), curr_contact.contact_email)
+            print(form["contact_notes"].value(), curr_contact.contact_notes)
+            if Contacts.objects.filter(contact_email=form['contact_email'].value(),
+                                       contact_name=form['contact_name'].value(),
+                                       contact_notes=form['contact_notes'].value()):
+                messages.success(request,
+                                 'Contact already exists! Nothing updated in the existing contact.')
+                return redirect('home')
+            elif curr_email == form['contact_email'].value():
+                form.save()
+                messages.success(request, 'Contact updated successfully!')
+                return redirect('home')
+            elif Contacts.objects.filter(contact_email=form['contact_email'].value()):
+                messages.success(request,
+                                 'Another contact with this e-mail id exists already! Unable to update contact.')
+                return render(request, 'update.html',
+                              {'curr_contact': curr_contact, 'created_time': curr_contact.created_time})
+            else:
+                form.save()
+                messages.success(request, 'Contact updated successfully!')
+                return redirect('home')
+    else:
+        curr_contact = Contacts.objects.get(pk=contact_id)
+        return render(request, 'update.html', {'curr_contact': curr_contact, 'created_time': update_time()})
