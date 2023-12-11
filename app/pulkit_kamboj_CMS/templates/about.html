@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %} CMS | About {% endblock %}
+{% block content %}
+{% load static %}
+<div style="display: flex; justify-content: center;">
+    <div class="card m-5" style="width: 25%;">
+        <img src="{% static 'pictures/profile_pic.jpeg' %}" class="card-img-top" alt="profile pic">
+        <div class="card-body">
+            <h1>About Me</h1>
+            <h3 class="card-title">Pulkit Kamboj</h3>
+            <h5 class="card-text">MSIS Student | Fall 2023</h5>
+            <h5 class="card-text">California State University, Long Beach</h5>
+            <h5 class="card-text">Student Id: 032258367</h5>
+        </div>
+    </div>
+    <div class="card m-5" style="width: 25%;">
+        <img src="{% static 'pictures/about2.png' %}" class="card-img-top" alt="profile pic">
+        <div class="card-body">
+            <h1>About Project</h1>
+            <h3 class="card-title">Contact Management Service</h3>
+            <h5 class="card-text">IS 640 Programming for Business analytics</h5>
+            <h5 class="card-text">Tech stack used: python, SQLite3 and Django framework</h5>
+            <h5 class="card-text">Functionality: Demonstrate CRUD operations</h5>
+            <a href="https://github.com/Pulkit05Kamboj/pulkit_kamboj" target="_blank" class="btn m-2" style="background-color: #167D7F; color: white;">Go to GitHub Repository</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'pulkit_kamboj_CMA',
+    'pulkit_kamboj_CMS',
 ]
 
 MIDDLEWARE = [

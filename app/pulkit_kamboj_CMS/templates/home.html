@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %} CMS | Home {% endblock %}
+
+{% block content %}
+<h1 style="text-align: center; color: black">Contact Management Service</h1>
+<div style="display: flex; justify-content: left;">
+  <a href="{% url 'addContact' %}" type="button" style="color: white; text-decoration: none; background-color: #167D7F;" class="btn m-2 p-2">Create a New Contact</a>
+</div>
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  <strong>{{ message }}</strong>
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endfor %}
+{% endif %}
+<div style="display: flex; justify-content: center;">
+  <table class="table m-3" style="text-align: center;">
+    <thead>
+    <tr>
+      <th scope="col" colspan="2" style="text-align: center;">Actions</th>
+      <th scope="col">Contact Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Created/Last updated Time</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if all_contacts %}
+    {% for contact in all_contacts %}
+    <tr>
+      <th scope="row"><a href="{% url 'update' contact.id %}"><i class="fa-solid fa-user-pen btn"></i></a></th>
+      <th scope="row"><a href="{% url 'deleteConf' contact.id %}"><i class="fa-solid fa-trash btn"></i></a></th>
+      <td><a href="{% url 'details' contact.id %}" style="text-decoration: none;">{{contact.contact_name}}</a></td>
+      <td>{{contact.contact_email}}</td>
+      <td>{{contact.created_time}}</td>
+    </tr>
+    {% endfor %}
+    {% endif %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
