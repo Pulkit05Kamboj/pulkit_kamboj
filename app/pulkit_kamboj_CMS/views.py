@@ -74,3 +74,14 @@ def update(request, contact_id):
     else:
         curr_contact = Contacts.objects.get(pk=contact_id)
         return render(request, 'update.html', {'curr_contact': curr_contact, 'created_time': update_time()})
+
+
+def delete(request, contact_id):
+    curr_contact = Contacts.objects.get(pk=contact_id)
+    curr_contact.delete()
+    return redirect('home')
+
+
+def delete_conf(request, contact_id):
+    curr_contact = Contacts.objects.get(pk=contact_id)
+    return render(request, 'deleteConf.html', {'curr_contact': curr_contact})
