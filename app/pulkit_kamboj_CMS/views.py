@@ -24,14 +24,24 @@ def add_contact(request):
     if request.method == 'POST':
         form = ContactForm(request.POST or None)
         if form.is_valid():
+            print(form['contact_name'].value())
+            if Contacts.objects.filter(contact_name=form['contact_name'].value()):
+                messages.success(request, 'Contact with given name exists already! Please use a different name.')
+                return redirect('createContact')
+
             print(form["contact_email"].value())
             if Contacts.objects.filter(contact_email=form['contact_email'].value()):
-                messages.success(request, 'Contact with given e-mail exists already! Unable to add contact.')
+                messages.success(request,
+                                 'Contact with given e-mail exists already! Please use a different email or update the existing contact.')
                 return redirect('createContact')
             else:
                 form.save()
                 messages.success(request, 'Contact created successfully.')
                 return redirect('home')
+        else:
+            messages.success(request, 'Invalid e-mail! Please use a valid e-mail Id.')
+            return redirect('createContact')
+
     else:
         return render(request, 'addContact.html', {'created_time': update_time()})
 
@@ -62,15 +72,24 @@ def update(request, contact_id):
                 form.save()
                 messages.success(request, 'Contact updated successfully!')
                 return redirect('home')
+            elif Contacts.objects.filter(contact_name=form['contact_name'].value()):
+                messages.success(request,
+                                 'Contact with given name exists already! Please use a different name.')
+                return render(request, 'update.html',
+                              {'curr_contact': curr_contact, 'created_time': curr_contact.created_time})
             elif Contacts.objects.filter(contact_email=form['contact_email'].value()):
                 messages.success(request,
-                                 'Another contact with this e-mail id exists already! Unable to update contact.')
+                                 'Contact with given e-mail exists already! Please use a different email.')
                 return render(request, 'update.html',
                               {'curr_contact': curr_contact, 'created_time': curr_contact.created_time})
             else:
                 form.save()
                 messages.success(request, 'Contact updated successfully!')
                 return redirect('home')
+        else:
+            messages.success(request, 'Invalid e-mail! Please use a valid e-mail Id.')
+            return render(request, 'update.html',
+                          {'curr_contact': curr_contact, 'created_time': curr_contact.created_time})
     else:
         curr_contact = Contacts.objects.get(pk=contact_id)
         return render(request, 'update.html', {'curr_contact': curr_contact, 'created_time': update_time()})
